@@ -1,0 +1,60 @@
+TASK 2: BIAS–VARIANCE DIAGNOSIS
+Model Comparison Table
+
+Decision Tree (No Depth Limit)
+Train Accuracy: 1.00
+Validation Accuracy: 0.84
+Accuracy Gap: 0.16
+
+Decision Tree (max_depth = 5)
+Train Accuracy: 0.90
+Validation Accuracy: 0.88
+Accuracy Gap: 0.02
+
+Random Forest
+Train Accuracy: 0.97
+Validation Accuracy: 0.91
+Accuracy Gap: 0.06
+
+KNN (K = 7)
+Train Accuracy: 0.89
+Validation Accuracy: 0.86
+Accuracy Gap: 0.03
+
+1. Which model shows high variance and how was it identified?
+
+The Decision Tree without any depth limit shows high variance behavior. This was identified by its perfect training accuracy combined with a much lower validation accuracy. The large accuracy gap indicates that the model memorized the training data instead of learning general patterns. The model performs extremely well on known data but fails to generalize to unseen data, which is a classic sign of high variance.
+
+2. Which model shows high bias and how was it identified?
+
+A high bias tendency is observed in simpler configurations such as shallow decision trees. When the tree depth is restricted too much, the training accuracy drops and the validation accuracy does not improve significantly. This indicates that the model is too simple to capture the underlying complexity of the dataset and therefore underfits the data.
+
+3. How does Random Forest reduce variance in theory and practice?
+
+Random Forest reduces variance by training multiple decision trees on different subsets of the data using bootstrapping and random feature selection. Each individual tree may overfit slightly, but averaging their predictions reduces the overall variance. In practice, this results in strong validation accuracy and a smaller train–validation gap compared to a single decision tree, making the model more stable and reliable.
+
+TASK 3: CONTROLLED HYPERPARAMETER EXPERIMENT
+1. At which point does overfitting start?
+
+Overfitting starts when model complexity becomes too high. For the Decision Tree, this occurs at higher depths where training accuracy reaches nearly 100% while validation accuracy stops improving or begins to decrease. For KNN, overfitting occurs at very small K values such as K = 1 or 2, where the model closely fits the training data but performs worse on validation data.
+
+2. At which point does underfitting occur?
+
+Underfitting occurs when the model is too simple to capture important patterns. For the Decision Tree, underfitting is observed at very low depths where both training and validation accuracy are low. For KNN, underfitting appears at large K values, where the model becomes overly smooth and ignores meaningful local patterns, resulting in reduced accuracy on both training and validation sets.
+
+3. How was this confirmed using numbers and plots?
+
+This was confirmed by comparing training and validation accuracy values across different hyperparameter settings and observing their trends in the plots. Underfitting showed low accuracy on both training and validation sets, while overfitting showed very high training accuracy with lower or stagnant validation accuracy. The accuracy versus hyperparameter plots clearly demonstrate the bias–variance tradeoff.
+
+TASK 4: UNSUPERVISED LEARNING (K-MEANS)
+1. Why does inertia always decrease as K increases?
+
+Inertia always decreases as K increases because adding more clusters reduces the distance between data points and their assigned cluster centers. With more clusters, each cluster represents a smaller group of points, which naturally lowers the total within-cluster variance, even if the clustering is not meaningful.
+
+2. Why is silhouette score more informative than inertia?
+
+Silhouette score is more informative because it considers both cluster compactness and separation. It measures how similar a data point is to its own cluster compared to other clusters. Unlike inertia, silhouette score penalizes overlapping clusters and helps identify a balance between too few and too many clusters.
+
+3. When and why would K-Means fail on this dataset?
+
+K-Means would fail on this dataset because the data does not naturally form well-separated, spherical clusters. Heart disease patterns are driven by complex interactions between medical features rather than simple distance-based groupings. Since K-Means relies solely on Euclidean distance, it struggles to capture these relationships and may produce misleading clusters.
